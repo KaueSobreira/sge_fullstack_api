@@ -3,7 +3,7 @@ from suppliers.models import Supplier
 from products.models import Product
 
 
-class Inflows(models.Model):
+class Inflow(models.Model):
     supplier = models.ForeignKey(Supplier, on_delete=models.PROTECT, related_name='inflows')
     product = models.ForeignKey(Product, on_delete=models.PROTECT, related_name='inflows')
     quantity = models.PositiveIntegerField()
