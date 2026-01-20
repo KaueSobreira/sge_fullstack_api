@@ -1,6 +1,7 @@
 from products.models import Product
 from django.utils.formats import number_format
 from django.db.models import Sum
+from outflows.models import Outflows
 
 
 
@@ -25,3 +26,19 @@ def get_product_metrics():
         'total_selling_price': number_format(total_selling_price, decimal_pos=2, force_grouping=True),
         'total_profit': number_format(total_profit, decimal_pos=2, force_grouping=True),
     }
+
+def get_sales_metrics():
+    total_sales = Outflows.objects.count()
+    total_products_sold = Outflows.objects.aggregate(
+        total_products_sold=Sum('quantity')
+    )['total_products_sold'] or 0
+    total_sales_value = sum(outflow.quantity * outflow.product.selling_price for outflow in Outflows.objects.all())
+    total_sales_cost = sum(outflow.quantity * outflow.product.cost_price for outflow in Outflows.objects.all())
+    total_sales_profit = total_sales_value - total_sales_cost
+
+    return dict(
+        total_sales = total_sales,
+        total_products_sold=total_products_sold,
+        total_sales_value=number_format(total_sales_value, decimal_pos=2, force_grouping=True),
+        total_sales_profit=number_format(total_sales_profit, decimal_pos=2, force_grouping=True)
+    )
