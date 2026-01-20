@@ -20,8 +20,8 @@ def get_product_metrics():
 
 
     return {
-        'total_quantity': number_format(total_quantity, decimal_pos=2, force_grouping=True),
+        'total_quantity': total_quantity,
         'total_cost_price': number_format(total_cost_price, decimal_pos=2, force_grouping=True),
-        'total_selling_price': total_selling_price,
+        'total_selling_price': number_format(total_selling_price, decimal_pos=2, force_grouping=True),
         'total_profit': number_format(total_profit, decimal_pos=2, force_grouping=True),
     }
