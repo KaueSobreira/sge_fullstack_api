@@ -47,7 +47,7 @@ def get_sales_metrics():
 
 def get_daily_sales_data():
     today = timezone.now().date()
-    dates = [str(today - timezone.timedelta(days=1)) for i in range(6,-1, -1)]
+    dates = [str(today - timezone.timedelta(days=i)) for i in range(6, -1, -1)]
     values = list()
 
     for date in dates:
@@ -59,13 +59,13 @@ def get_daily_sales_data():
         values.append(float(sales_total))
 
     return dict(
-        dates=date,
+        dates=dates,
         values=values,
     )
 
 def get_daily_sales_quantity_data():
     today = timezone.now().date()
-    dates = [str(today - timezone.timedelta(days=1)) for i in range(6,-1, -1)]
+    dates = [str(today - timezone.timedelta(days=i)) for i in range(6,-1, -1)]
     quantities = list()
 
     for date in dates:
