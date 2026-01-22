@@ -20,7 +20,7 @@ class CategoryListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
         if name:
             queryset = queryset.filter(name__icontains=name)
-        
+
         return queryset
 
 
@@ -31,10 +31,12 @@ class CategoryCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
     success_url = reverse_lazy('category_list')
     permission_required = 'categories.add_category'
 
+
 class CategoryDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Category
     template_name = 'category_detail.html'
     permission_required = 'categories.view_category'
+
 
 class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Category
@@ -43,15 +45,18 @@ class CategoryUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
     success_url = reverse_lazy('category_list')
     permission_required = 'categories.change_category'
 
+
 class CategoryDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = models.Category
     template_name = 'category_delete.html'
     success_url = reverse_lazy('category_list')
     permission_required = 'categories.delete_category'
 
+
 class CategoriesCreateListViewAPIView(generics.ListCreateAPIView):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
+
 
 class CategoriesDetailRetrieveDeleteViewAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Category.objects.all()

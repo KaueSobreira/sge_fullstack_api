@@ -20,7 +20,7 @@ class BrandListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
         if name:
             queryset = queryset.filter(name__icontains=name)
-        
+
         return queryset
 
 
@@ -31,10 +31,12 @@ class BrandCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy('brand_list')
     permission_required = 'brands.add_brand'
 
+
 class BrandDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = models.Brand
     template_name = 'brand_detail.html'
     permission_required = 'brands.view_brand'
+
 
 class BrandUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = models.Brand
@@ -43,15 +45,18 @@ class BrandUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     success_url = reverse_lazy('brand_list')
     permission_required = 'brands.change_brand'
 
+
 class BrandDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = models.Brand
     template_name = 'brand_delete.html'
     success_url = reverse_lazy('brand_list')
     permission_required = 'brands.delete_brand'
 
+
 class BrandCreateListViewAPIView(generics.ListCreateAPIView):
     queryset = models.Brand.objects.all()
     serializer_class = serializers.BrandSerializer
+
 
 class BrandDetailRetrieveDeleteViewAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.Brand.objects.all()

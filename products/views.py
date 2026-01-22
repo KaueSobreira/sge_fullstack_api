@@ -30,7 +30,7 @@ class ProductListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
         if brand:
             queryset = queryset.filter(brand__id=brand)
-            
+
         if serie_number:
             queryset = queryset.filter(serie_number__icontains=serie_number)
 
@@ -71,6 +71,7 @@ class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView)
     template_name = 'product_delete.html'
     success_url = reverse_lazy('product_list')
     permission_required = 'products.delete_product'
+
 
 class ProductCreateListAPIView(generics.ListCreateAPIView):
     queryset = models.Product.objects.all()

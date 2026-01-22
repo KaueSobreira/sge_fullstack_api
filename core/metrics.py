@@ -1,4 +1,3 @@
-from statistics import quantiles
 from products.models import Product
 from django.utils import timezone
 from django.utils.formats import number_format
@@ -10,12 +9,13 @@ from categories.models import Category
 
 
 def get_product_metrics():
-    # MODO NATIVO USANDO PYTHON
-    # products = Product.objects.all()
-    # total_cost_price = sum(product.cost_price * product.quantity for product in products)
-    # total_selling_price = sum(product.selling_price * product.quantity for product in products)
-    # total_quatity = sum(product.quantity for product in products)
-    # total_profit = total_selling_price - total_cost_price
+
+# MODO NATIVO USANDO PYTHON
+# products = Product.objects.all()
+# total_cost_price = sum(product.cost_price * product.quantity for product in products)
+# total_selling_price = sum(product.selling_price * product.quantity for product in products)
+# total_quatity = sum(product.quantity for product in products)
+# total_profit = total_selling_price - total_cost_price
 
 
     total_quantity = Product.objects.aggregate(total_quantity=Sum('quantity'))['total_quantity']
