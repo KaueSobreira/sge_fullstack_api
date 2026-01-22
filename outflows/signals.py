@@ -1,7 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import Outflows
-from products.models import Product
 from django.core.exceptions import ValidationError
 
 

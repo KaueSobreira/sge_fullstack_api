@@ -7,22 +7,18 @@ from brands.models import Brand
 from categories.models import Category
 
 
-
 def get_product_metrics():
-
-# MODO NATIVO USANDO PYTHON
-# products = Product.objects.all()
-# total_cost_price = sum(product.cost_price * product.quantity for product in products)
-# total_selling_price = sum(product.selling_price * product.quantity for product in products)
-# total_quatity = sum(product.quantity for product in products)
-# total_profit = total_selling_price - total_cost_price
-
+    # MODO NATIVO USANDO PYTHON
+    # products = Product.objects.all()
+    # total_cost_price = sum(product.cost_price * product.quantity for product in products)
+    # total_selling_price = sum(product.selling_price * product.quantity for product in products)
+    # total_quatity = sum(product.quantity for product in products)
+    # total_profit = total_selling_price - total_cost_price
 
     total_quantity = Product.objects.aggregate(total_quantity=Sum('quantity'))['total_quantity']
     total_cost_price = Product.objects.aggregate(total_cost_price=Sum('cost_price'))['total_cost_price']
     total_selling_price = Product.objects.aggregate(total_selling_price=Sum('selling_price'))['total_selling_price']
     total_profit = total_selling_price - total_cost_price
-
 
     return {
         'total_quantity': total_quantity,
@@ -30,6 +26,7 @@ def get_product_metrics():
         'total_selling_price': number_format(total_selling_price, decimal_pos=2, force_grouping=True),
         'total_profit': number_format(total_profit, decimal_pos=2, force_grouping=True),
     }
+
 
 def get_sales_metrics():
     total_sales = Outflows.objects.count()
@@ -41,11 +38,12 @@ def get_sales_metrics():
     total_sales_profit = total_sales_value - total_sales_cost
 
     return dict(
-        total_sales = total_sales,
+        total_sales=total_sales,
         total_products_sold=total_products_sold,
         total_sales_value=number_format(total_sales_value, decimal_pos=2, force_grouping=True),
         total_sales_profit=number_format(total_sales_profit, decimal_pos=2, force_grouping=True)
     )
+
 
 def get_daily_sales_data():
     today = timezone.now().date()
@@ -65,9 +63,10 @@ def get_daily_sales_data():
         values=values,
     )
 
+
 def get_daily_sales_quantity_data():
     today = timezone.now().date()
-    dates = [str(today - timezone.timedelta(days=i)) for i in range(6,-1, -1)]
+    dates = [str(today - timezone.timedelta(days=i)) for i in range(6, -1, -1)]
     quantities = list()
 
     for date in dates:
@@ -78,6 +77,7 @@ def get_daily_sales_quantity_data():
         dates=dates,
         values=quantities,
     )
+
 
 def get_graphic_product_category_metric():
     categories = Category.objects.all()
